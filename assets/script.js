@@ -6,7 +6,7 @@ var highScores = document.getElementById('highScores');
 var questions = [
     {
         question: "1. Inside which HTML element do we put the JavaScript?",
-        answers: ["<js>", "<scripting>", "<javascript>", "<script>"],
+        answers: ["js", "scripting", "javascript", "script"],
         correctAnswer: 4
     },
 
@@ -37,6 +37,7 @@ function startQuiz() {
         if (welcome.style.display !== 'none') {
             welcome.style.display = 'none';
             countdown();
+            getQuestion();
         } else {
             welcome.style.display = 'block';
         }
@@ -55,13 +56,47 @@ function countdown() {
             clearInterval(timeInterval);
             timerEl.remove();
             }
-        displayMessage();
         }
     }, 1000);
 }
 
 
 function getQuestion() {
+    
+
+    for (var i = 0; i < questions.length; i++) {  
+        var question = questions[i].question;
+        var answers = questions[i].answers;   
+        document.write(question);
+        document.body.appendChild(document.createElement("br"));
+        var name = "radio"+i; 
+        for (var opt in answers) {
+        var radioEl = document.createElement("input");
+          radioEl.type = "radio";          
+          radioEl.value = answers[opt];
+          radioEl.name = name;
+          document.body.appendChild(radioEl);
+          var label = document.createElement("Label");
+          label.innerHTML = answers[opt];
+          document.body.appendChild(label);
+          document.body.appendChild(document.createElement("br"));
+        }
+
+        var questionIndex = -1;
+
+        if (questionIndex < (questions.length - 1)) {
+            var nextButton = document.createElement("input");
+            nextButton.type = "button";
+            nextButton.value = "Next question";
+            nextButton.addEventListener('click', getQuestion, questionClick);
+            document.body.appendChild(nextButton);
+           }
+
+        document.body.appendChild(document.createElement("br"));
+    
+        }
+
+    // }
     // grab questions array
     // set each of the choices with a forEach function 
     //     create button within forEach function
@@ -72,8 +107,9 @@ function getQuestion() {
 }
 
 function questionClick() {
-    // if this (choice) is not equal to the answer, then subtract time
-    
-}
+    if (userAnswer !== currentQuestion.correctAnswer) {
+        timerEl - 5;
+    }
+};
 
 startQuiz();
