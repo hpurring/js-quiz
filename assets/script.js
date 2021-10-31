@@ -67,11 +67,10 @@ function getQuestion() {
 
     quizContainer.style = "";
     //this loop will go through all the answers from the first question initially as questionIndex being 0 
-    for (var i = 0; i < questions[questionIndex].answers.length; i++) 
+    for (var i = 0; i < questions[questionIndex].answers.length; i++) {
 
     var question = questions[questionIndex].question;
     var answers = questions[questionIndex].answers; 
-    var currentQuestion = 0;
 
     document.getElementById("question").textContent = question;
     var name = "radio"+i; 
@@ -97,6 +96,13 @@ function getQuestion() {
             } else {
                 timeLeft += 5;
             }
+
+            if (questionIndex <= questions.length) {
+                questionIndex += 1;
+                getQuestion();
+            } else {
+                endQuiz();
+            }
         };
     
         submitButton.onclick = function() {
@@ -104,15 +110,11 @@ function getQuestion() {
             if (quizContainer.style.display !== 'none') {
                 quizContainer.style.display = 'none';
             };
-            if (questionIndex < questions.length) {
-                questionIndex += 1;
-                getQuestion();
-            } else {
-                endQuiz();
-            }
+            
 
          
-        };        
+        }; 
+               
        
     };
 };
@@ -135,5 +137,6 @@ function endQuiz() {
     
     
 }
+}; 
 
 startQuiz();
