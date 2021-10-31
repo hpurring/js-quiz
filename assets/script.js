@@ -66,12 +66,12 @@ function countdown() {
 function getQuestion() {
 
     quizContainer.style = "";
-
     //this loop will go through all the answers from the first question initially as questionIndex being 0 
     for (var i = 0; i < questions[questionIndex].answers.length; i++) 
 
     var question = questions[questionIndex].question;
     var answers = questions[questionIndex].answers; 
+    var currentQuestion = 0;
 
     document.getElementById("question").textContent = question;
     var name = "radio"+i; 
@@ -104,23 +104,27 @@ function getQuestion() {
             if (quizContainer.style.display !== 'none') {
                 quizContainer.style.display = 'none';
             };
-            questionIndex += 1;
-            questionClick();
-            getQuestion();
-            };        
+            if (questionIndex < questions.length) {
+                questionIndex += 1;
+                getQuestion();
+            } else {
+                endQuiz();
+            }
+
+         
+        };        
        
     };
 };
 
 function timeOut() {
-    if (timeLeft <= 0) {
-        endquiz();
+    if (timeLeft === 0) {
+        endQuiz();
     }
 }
 
 
 function endQuiz() {
-    myStopFunction();
     var endQuiz = document.getElementById('endquiz');  
     if (endQuiz.style.display !== 'block') {
         endQuiz.style.display = 'block';
