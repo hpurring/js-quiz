@@ -2,6 +2,8 @@ var quizContainer = document.getElementById('quiz');
 var submitButton = document.getElementById('submit');
 var resultsContainer = document.getElementById('results');
 var highScores = document.getElementById('highScores');
+var questionIndex = 0;
+var quizScore = 0;
 
 var questions = [
     {
@@ -62,53 +64,43 @@ function countdown() {
 
 
 function getQuestion() {
-    
 
-    for (var i = 0; i < questions.length; i++) {  
-        var question = questions[i].question;
-        var answers = questions[i].answers;   
-        document.write(question);
-        document.body.appendChild(document.createElement("br"));
-        var name = "radio"+i; 
-        for (var opt in answers) {
+    //this loop will go through all the answers from the first question initially as questionIndex being 0 
+    for (var i = 0; i < questions[questionIndex].answers.length; i++) 
+
+    var question = questions[questionIndex].question;
+    var answers = questions[questionIndex].answers; 
+
+    document.write(question);
+    document.body.appendChild(document.createElement("br"));
+    var name = "radio"+i; 
+    for (var opt in answers) {
         var radioEl = document.createElement("input");
-          radioEl.type = "radio";          
-          radioEl.value = answers[opt];
+        radioEl.type = "radio";          
+        radioEl.value = answers[opt];
           radioEl.name = name;
           document.body.appendChild(radioEl);
           var label = document.createElement("Label");
           label.innerHTML = answers[opt];
           document.body.appendChild(label);
           document.body.appendChild(document.createElement("br"));
+          document.body.appendChild(submitButton);
+          questionClick = function() {
+            if (radioEl.value !== questions.correctAnswer) {
+                timerEl =- 5;
+            } else {
+                timerEl =+ 5;
+            }
         }
-
-        var questionIndex = -1;
-
-        if (questionIndex < (questions.length - 1)) {
-            var nextButton = document.createElement("input");
-            nextButton.type = "button";
-            nextButton.value = "Next question";
-            nextButton.addEventListener('click', getQuestion, questionClick);
-            document.body.appendChild(nextButton);
-           }
-
-        document.body.appendChild(document.createElement("br"));
     
+    submitButton.onclick = function() {
+        if (quizContainer.style.display !== 'none') {
+            quizContainer.style.display = 'none';
+        };
+        questionIndex += 1;
+        questionClick();
+        getQuestion();
         }
-
-    // }
-    // grab questions array
-    // set each of the choices with a forEach function 
-    //     create button within forEach function
-    //     set text content to choices in questions array
-    //     add event listener to each of the choices questionClick
-    // append to screen 
-
-}
-
-function questionClick() {
-    if (userAnswer !== currentQuestion.correctAnswer) {
-        timerEl - 5;
     }
 };
 
