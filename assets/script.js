@@ -47,8 +47,8 @@ function startQuiz() {
 }
 
 var timerEl = document.getElementById('countdown');
+var timeLeft = 30;
 function countdown() {
-    var timeLeft = 30;
     var timeInterval = setInterval(function handleInterval() {
         if (timeLeft >= 1) {
             timeLeft = timeLeft - 1;
@@ -93,13 +93,11 @@ function getQuestion() {
           document.getElementById("answers").appendChild(submitButton);
           questionClick = function() {
             if (radioEl.value !== questions.correctAnswer) {
-                timerEl =- 5;
-                countdown();
+                timeLeft -= 5;
             } else {
-                timerEl =+ 5;
-                countdown();
+                timeLeft += 5;
             }
-        }
+        };
     
         submitButton.onclick = function() {
             document.getElementById("answers").innerHTML = "";
@@ -109,11 +107,16 @@ function getQuestion() {
             questionIndex += 1;
             questionClick();
             getQuestion();
-            countdown();
             };        
        
-    }
+    };
 };
+
+function timeOut() {
+    if (timeLeft <= 0) {
+        endquiz();
+    }
+}
 
 
 function endQuiz() {
@@ -121,9 +124,12 @@ function endQuiz() {
     var endQuiz = document.getElementById('endquiz');  
     if (endQuiz.style.display !== 'block') {
         endQuiz.style.display = 'block';
+        document.getElementById("question").textContent = question;
         } else {
             endQuiz.style.display = 'none';
         };
+    
+    
 }
 
 startQuiz();
