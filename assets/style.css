@@ -28,7 +28,7 @@ header p {
     padding: 10px;
 }
 
-#start-btn {
+#start-btn, #new-start-btn {
 	font-size: 18px;
 	background-color: rgb(91, 0, 91);
 	color: white;
@@ -51,6 +51,7 @@ header p {
 	font-weight: 600;
 	font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 	text-align: left;
+	width: 500px;
 }
 
 #answers {
@@ -59,6 +60,7 @@ header p {
 	font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 	text-align: left;
 	line-height: 30px;
+	width: 500px;
 }
 
 #submit {
@@ -71,21 +73,23 @@ header p {
 	padding: 20px;
 	cursor: pointer;
 	margin: 30px auto;
+	width: 200px;
+	text-align: center;
 }
 
 
-#submit:hover {
-	background-color rgb(162, 63, 162));
+#submit:hover, #start-btn:hover, #new-start-btn:hover, #endquizsubmit:hover, #get-high-scores:hover  {
+	background-color: rgb(162, 63, 162);
 }
 
-#endquiz {
+#endquiz, #highscores {
 	display: flex;
 	flex-direction: column;
 	text-align: center;
 	font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
-#endquizsubmit {
+#endquizsubmit, #get-high-scores {
 	font-size: 14px;
 	background-color: rgb(91, 0, 91);
 	color: white;
@@ -96,9 +100,6 @@ header p {
 	margin: 20px 20px;
 }
 
-#highscores {
-	text-align: center;
-}
 
 #highscores h2 {
 	text-align: center;

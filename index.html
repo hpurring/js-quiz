@@ -11,7 +11,7 @@
 
 <body>
     <header class="page-title">
-        <p id="highscores">View High Scores</p>
+        <button id="get-high-scores">View High Scores</button>
         <p id="countdown"></p>
     </header>
 
@@ -46,7 +46,7 @@
         <h2>
             All done!
         </h2>
-        <p>Your final score is: <span id="finalscore"></span></p>
+        <p>Your final score is <span id="finalscore"></span> seconds.</p>
         <form id="form">
             <label for="lname">Type your initials here:</label>
             <input type="text" id="initials">
@@ -58,7 +58,8 @@
         <h2>
             High Scores
         </h2>
-        <button id="start-btn">Try Quiz Again</button>
+        <p><span id="scoreslist"></span></p>
+        <button id="new-start-btn">Try Quiz Again</button>
     </div>
 
     <script src="./assets/script.js"></script>
