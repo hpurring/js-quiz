@@ -4,6 +4,8 @@ var resultsContainer = document.getElementById('results');
 var end = document.getElementById('endquiz');  
 var questionIndex = 0;
 var quizScore = 0;
+var user = [];
+
 
 var questions = [
     {
@@ -98,7 +100,7 @@ function getQuestion() {
                 quizContainer.style.display = 'none';
             };
             questionClick = function() {
-                if (radioEl.value !== questions.correctAnswer) {
+                if (radioEl.value !== questions[questionIndex].correctAnswer) {
                     timeLeft -= 5;
                 } else {
                     timeLeft += 5;
@@ -133,12 +135,31 @@ function endQuiz() {
 
     document.getElementById("finalscore").innerHTML = timeLeft;
     var endQuizSubmit = document.getElementById("endquizsubmit");
-    var initials = document.getElementById("initials");
+
+
     endQuizSubmit.onclick = function() {
-        localStorage.setItem("initials", initials.value);
-        localStorage.setItem("score", timeLeft);
+        event.preventDefault();
+
+        var initials = document.getElementById("initials").value;
+    
+        if (!initials) {
+            alert("Please fill out your initials so we can record your score!")
+            return false;
+        } else {
+            var scoreDataObj = {
+                name: initials,
+                score: timeLeft
+            };
+        };
+        user.push(scoreDataObj);
+        saveScore();
     };
 };
+
+function saveScore() {
+    localStorage.setItem("user", JSON.stringify(user));
+};
+    
 
 var getHighScores = document.getElementById("get-high-scores");
 var showScores = document.getElementById("highscores");
@@ -158,9 +179,29 @@ getHighScores.onclick = function() {
     } else {
         end.style.display = 'none';
     };
+    if (quiz.style.display !== 'none') {
+        quiz.style.display = 'none';
+    } else {
+        quiz.style.display = 'none';
+    };
 
-    var scoresList = localStorage.getItem("initials", "score");
-    document.getElementById("scoreslist").innerHTML = scoresList;
+    loadScores();
+
+    function loadScores() {
+        // Gets user info & scores from localStorage.
+        var scoresList = localStorage.getItem("user");
+        // Converts user info & scores from the string format back into an array of objects.
+        if(!scoresList) {
+            user = [];
+            return false;
+        }
+       
+        user = JSON.parse(scoresList);
+
+        for (var i = 0; i < scoresList.length; i++) {
+        document.getElementById("scoreslist").innerHTML = scoresList;
+        };
+    };
 
     var newStartBtn = document.getElementById('new-start-btn');
     newStartBtn.onclick = function() {  
